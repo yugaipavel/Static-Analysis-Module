@@ -1,0 +1,10 @@
+Error of checking signature of the 'D:\Users\Desktop\dir_file\folder\WinRAR.rar'. Error is: -2146762749
+
+The file 'D:\Users\Desktop\dir_file\get_passwords_chrome.exe' is not signed.
+
+Error of checking signature of the 'D:\Users\Desktop\dir_file\gg.txt'. Error is: -2146762749
+
+Error of checking signature of the 'D:\Users\Desktop\dir_file\qwer'. Error is: -2146762749
+
+Error of checking signature of the 'D:\Users\Desktop\dir_file\reports_of_works.rar'. Error is: -2146762749
+

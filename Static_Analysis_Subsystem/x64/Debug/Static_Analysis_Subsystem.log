@@ -1,0 +1,12 @@
+﻿  main.cpp
+cl : командная строка warning D9025: переопределение "/sdl" на "/GS-"
+cl : командная строка warning D9025: The contents of <filesystem> are only available with C++17 or later.
+D:\Users\Desktop\IBKS\5_course_1_semester\Zhukovsky\Laba2\Static_Analysis_Subsystem\Static_Analysis_Subsystem\sources\main.cpp(39,1): warning C4996: 'mbstowcs': This function or variable may be unsafe. Consider using mbstowcs_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdlib.h(927): message : см. объявление "mbstowcs"
+D:\Users\Desktop\IBKS\5_course_1_semester\Zhukovsky\Laba2\Static_Analysis_Subsystem\Static_Analysis_Subsystem\sources\main.cpp(111,1): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(208): message : см. объявление "fopen"
+D:\Users\Desktop\IBKS\5_course_1_semester\Zhukovsky\Laba2\Static_Analysis_Subsystem\Static_Analysis_Subsystem\sources\main.cpp(151,1): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(208): message : см. объявление "fopen"
+D:\Users\Desktop\IBKS\5_course_1_semester\Zhukovsky\Laba2\Static_Analysis_Subsystem\Static_Analysis_Subsystem\sources\main.cpp(288,21): warning C4129: .: неизвестная escape-последовательность
+D:\Users\Desktop\IBKS\5_course_1_semester\Zhukovsky\Laba2\Static_Analysis_Subsystem\Static_Analysis_Subsystem\sources\main.cpp(1170,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  Static_Analysis_Subsystem.vcxproj -> D:\Users\Desktop\IBKS\5_course_1_semester\Zhukovsky\Laba2\Static_Analysis_Subsystem\x64\Debug\Static_Analysis_Subsystem.exe
