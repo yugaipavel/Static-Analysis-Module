@@ -9,7 +9,7 @@ To implement the static analysis subsystem, we used the C ++ programming languag
 
 • -v path_dir_or_file, file signature verification.
 
-The static analysis subsystem is a pipe client that sends messages of the following format to the pipe server \\. \ Pipe \ StaticAnalysisModule:
+The static analysis subsystem is a pipe client that sends messages of the following format to the pipe server \\.\Pipe\StaticAnalysisModule:
 
 • log.message, message for logging;
 
