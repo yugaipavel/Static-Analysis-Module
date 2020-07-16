@@ -26,9 +26,9 @@ using namespace std;
 
 #pragma comment (lib, "wintrust")
 
-// Идентификатор канала Pipe
+// Pipe ID
 HANDLE hNamedPipe;
-// Имя pipe
+// pipe name
 char szPipeName[256] = "\\\\.\\pipe\\StaticAnalysisModule";
 
 ofstream log_file_static_analysis;
@@ -530,7 +530,7 @@ void parse_and_load_virus_databases(string FolderName, string PathLevelDB)
 	FileName.clear();
 	*/
 
-	// открываем базы данных leveldb, если их нет, то парсим бд из clamav, создаём свои бд leveldb и заполняем их
+	// open the leveldb databases, if they do not exist, then parse the database from clamav, create our own leveldb databases and fill them
 	leveldb::WriteOptions writeOptions;
 
 	string leveldb_hdb = "DB_hdb";
@@ -611,7 +611,7 @@ void parse_and_load_virus_databases(string FolderName, string PathLevelDB)
 	}
 	else
 	{
-		// дб открыта
+		// database was openned
 	}		
 	FileName.clear();
 	
@@ -704,7 +704,7 @@ void parse_and_load_virus_databases(string FolderName, string PathLevelDB)
 	}
 	else
 	{
-		// дб открыта
+		// database was openned
 	}		
 	FileName.clear();
 
@@ -785,7 +785,7 @@ void parse_and_load_virus_databases(string FolderName, string PathLevelDB)
 	}
 	else
 	{
-		// дб открыта	
+		// database was openned	
 	}
 	FileName.clear();
 
@@ -1417,61 +1417,62 @@ void main(int argc, char* argv[])
 {
 	/*
 	functions:
-	1. -s path_dir_or_file		проверка файлов на совпадение с сигнатурами
-	2. -y path_dir_or_file		проверка файлов на яра-правила
-	3. -p path_dir_or_file		определение упаковки файлов
-	4. -v path_dir_or_file		проверка подписи файлов
+	1. -s path_dir_or_file		check files for signature matches
+	2. -y path_dir_or_file		check files for yara-rules
+	3. -p path_dir_or_file		define file packing
+	4. -v path_dir_or_file		 file signature verification
 
-	sha256 и md5 файлов:
+	sha256 and md5 files:
 	get_sha256_from_file("D:\\Users\\Desktop\\IBKS\\5_course_1_semester\\Zhukovsky\\Laba2\\TestFiles\\gg.pdf");
 	get_md5_from_file("D:\\Users\\Desktop\\IBKS\\5_course_1_semester\\Zhukovsky\\Laba2\\TestFiles\\gg.pdf");
 
-	директория с тестовыми файлами: D:\Users\Desktop\dir_file
+	directory with test files: D:\Users\Desktop\dir_file
 
-	имя файла для теста проверки подписи: D:\Programs\Python\Python37_64\python3.exe
+	filename for signature verification test: D:\Programs\Python\Python37_64\python3.exe
 	*/
 	
 	int choice;
 	string FName;
 
-	// путь до баз данных ClamAV
+	// path to ClamAV databases
 	string PathDataBases = "C:\\UnterAV\\DataBases\\ClamavSignatureDataBase\\maincvd\\";
-	// путь до баз данных с сигнатурами, хранящиеся в LevelDB
+	// path to databases with signatures stored in LevelDB
 	string PathLevelDB = "C:\\UnterAV\\DataBases\\LevelDB\\MalwareDB\\";
-	// путь до Yara-правил для malwares
+	// path to Yara rules for malwares
 	string PathYaraRulesForScanningMalware = "C:\\UnterAV\\Rules\\YaraRules\\ForMalware";
-	// путь до Yara-правил для определения упаковки
+	// path to Yara rules for packing definition
 	string PathYaraRulesForPackers = "C:\\UnterAV\\Rules\\YaraRules\\ForPackers";
 
 	log_file_static_analysis.open("C:\\UnterAV\\Logs\\log_static_analysis.txt", ios::app);
 
-	// Создаем канал с процессом PIPES
+	// Create a pipe with the PIPES process
 	hNamedPipe = CreateFile(szPipeName, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 
-	// Если возникла ошибка, выводим ее код и 
-	// завершаем работу приложения
+	// If an error occurs, display its code and exit the application
 	if (hNamedPipe == INVALID_HANDLE_VALUE)
 	{
 		fprintf(stdout, "CreateFile: Error %ld\n", GetLastError());
 		return;
 	}
-	// Выводим сообщение о создании канала
+	// Displaying a message about channel creation
 	fprintf(stdout, "\nConnected. Type 'exit' to terminate\n");
 
 	if (!strncmp(argv[1], "-s", 2)) {
 		FName = argv[2];
 		choice = 1;
-		// 1. -s path_dir_or_file проверка файлов на совпадение с сигнатурами	
-		// парсинг баз clamav, создание баз leveldb, процерка целостности
+		// 1. -s path_dir_or_file
+		// checking files for signature matches	
+		// parsing clamav databases, creating leveldb databases, checking integrity
 		parse_and_load_virus_databases(PathDataBases, PathLevelDB);
 
-		// рекурсивный проход по всем файлам/директориям
+		// recursive iteration over all files/directories
 		FindFiles(FName, choice);
 	}
 	else if (!strncmp(argv[1], "-y", 2)) {
 		FName = argv[2];
 		choice = 2;
-		// 2. -y path_dir_or_file проверка файлов на яра-правила
+		// 2. -y path_dir_or_file
+		// checking files for yara-rules
 		if (load_yara_rules_for_malware(PathYaraRulesForScanningMalware) == 1)
 		{
 			FindFiles(FName, choice);
@@ -1491,7 +1492,8 @@ void main(int argc, char* argv[])
 	else if (!strncmp(argv[1], "-p", 2)) {
 		FName = argv[2];
 		choice = 3;
-		// 3. -p path_dir_or_file определение упаковки файлов
+		// 3. -p path_dir_or_file
+		// file packaging definition
 		if (load_yara_rules_for_packer(PathYaraRulesForPackers) == 1)
 		{
 			FindFiles(FName, choice);
@@ -1510,11 +1512,12 @@ void main(int argc, char* argv[])
 	else if (!strncmp(argv[1], "-v", 2)) {
 		FName = argv[2];
 		choice = 4;
-		// 4. -v path_dir_or_file проверка подписи файлов
+		// 4. -v path_dir_or_file
+		// file signature verification
 		FindFiles(FName, choice);
 	}
 
-	// закрываем дб LevelDB
+	// close databases LevelDB
 	if (db_hdb)
 		delete db_hdb;
 	if (db_hsb)
@@ -1522,7 +1525,7 @@ void main(int argc, char* argv[])
 	if (db_fp)
 		delete db_fp;
 
-	// закрываем файл с логами
+	// close the log file
 	log_file_static_analysis.close();
 
 	if (hNamedPipe)
