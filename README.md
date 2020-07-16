@@ -1,14 +1,22 @@
 # Static-Analysis-Module
 To implement the static analysis subsystem, we used the C ++ programming language for the Windows 7 x86 architecture. The static analysis subsystem is implemented as an executable .exe file that is launched with the following arguments:
+
 • -s path_dir_or_file, check files for signature matches;
+
 • -y path_dir_or_file, check files for yara-rules;
+
 • -p path_dir_or_file, file packing definition;
+
 • -v path_dir_or_file, file signature verification.
 
 The static analysis subsystem is a pipe client that sends messages of the following format to the pipe server \\. \ Pipe \ StaticAnalysisModule:
+
 • log.message, message for logging;
+
 • event.message, a message to display on the screen, as a rule, about the maliciousness of the file;
+
 • file (+). PathOfFile, message stating that the file is not malicious;
+
 • file (-). PathOfFile, message that the file is malicious.
 
 Message - message body, PathOfFile - full path of the checked file. (^_^) - is a message separator, placed at the end of each.
